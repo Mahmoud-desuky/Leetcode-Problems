@@ -1,34 +1,21 @@
 class Solution {
-     int f(int i, int j, vector<vector<int>>& mat, vector<vector<int>>& dp) {
-        if(i < 0 || j < 0 || j >= mat[0].size()) {
-            return 1e8;
-        }
-        if(dp[i][j] != -1) {
-            return dp[i][j];
-        }
-        if(i == 0) {
-            return mat[0][j];
-        }
-        int mini = 1e8;
-        for(int k=0; k<mat[0].size(); k++) {
-            if(k != j) {
-                mini = min(mini, mat[i][j] + f(i-1, k, mat, dp));
+public:
+    int minFallingPathSum(vector<vector<int>>& grid) {
+          int n=grid.size();
+        vector<vector<int>>dp=grid;
+        for(int i=n-2;i>=0;i--){
+            for(int j=0;j<n;j++){
+               int l=INT_MAX;
+               for(int k=0;k<n;k++){
+                if(k==j)continue;
+                 l=min(l,dp[i+1][k]);
+               }
+               dp[i][j]+=l;
             }
         }
-        dp[i][j] = mini;
-        return dp[i][j];
-    }
-
-
-public:
-    int minFallingPathSum(vector<vector<int>>& mat) {
-        int mini = 1e8;
-        int n = mat.size(), m = mat[0].size();
-        vector<vector<int>> dp(n, vector<int>(m, -1));
-        for(int j=0; j<m; j++) {
-            mini = min(mini, f(n-1, j, mat, dp));
-        }
-
-        return mini;
+        int ans=INT_MAX;
+        for(int i=0;i<n;i++)
+            ans=min(ans,dp[0][i]);
+         return ans;
     }
 };
