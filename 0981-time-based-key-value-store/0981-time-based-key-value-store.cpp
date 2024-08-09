@@ -14,13 +14,11 @@ public:
         auto cmp = [](const pair<int, string>& a, const pair<int, string>& b) {
             return a.first < b.first;
         };
-        auto it = upper_bound(mp[key].begin(), mp[key].end(), make_pair(timestamp, ""), cmp);
+        auto it = upper_bound(mp[key].begin(), mp[key].end(), make_pair(timestamp, ""), cmp)-mp[key].begin()-1;
         
-        if (it == mp[key].begin())
+        if (it < 0)
             return "";
-        
-        --it;
-        
-        return it->second;
+       
+        return mp[key][it].second;
     }
 };
