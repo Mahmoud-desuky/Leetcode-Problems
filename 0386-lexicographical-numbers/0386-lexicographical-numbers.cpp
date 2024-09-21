@@ -1,37 +1,21 @@
 class Solution {
 public:
-    vector<int>ans;
-    int x;
-    map<int,int>mp;
-    // i i*10 i*10 i*10  
-    void dfs(int i)
-    {
-       if(i>x)
-           return;
-        if(i<=x&&mp[i]==0)
-        {
-            mp[i]=1;
-            ans.push_back(i);
-        }
-        
-        dfs(i*10);
-       
-        
-        
-    }
+
     vector<int> lexicalOrder(int n) {
-      vector<string>temp;
-        vector<int>v;
-        for(int i=1;i<=n;i++)
+      int i=1;
+      vector<int>ans;
+        for(int j=1;j<=n;j++)
         {
-            temp.push_back(to_string(i));
+            ans.push_back(i);
+            if(i*10<=n)
+                i*=10;
+            else 
+            {
+                while (i%10==9||i>=n)
+                    i/=10;
+                i++;
+            }
         }
-        sort(temp.begin(),temp.end());
-        
-        for(int i=0;i<temp.size();i++)
-        {
-            v.push_back(stoi(temp[i]));
-        }
-        return v;
+        return ans;
     }
 };
