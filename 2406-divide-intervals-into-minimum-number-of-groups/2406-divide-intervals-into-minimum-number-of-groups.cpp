@@ -20,18 +20,14 @@ public:
             }
             ans++;
         }*/
-        map<int,int>mp;
-        int ans=0,cnt=0;
-        for(auto it:intervals)
-        {  
-            mp[it[0]]++;
-            mp[it[1]+1]--;
-        }
-        for(auto[l,r]:mp)
+       vector<int>v(1000009);
+        for(auto a:intervals)
         {
-            cnt+=r;
-            ans=max(ans,cnt);
+            v[a[0]]++;
+            v[a[1]+1]--;
         }
-        return ans;
+        for(int i=1;i<1000009;i++)
+            v[i]+=v[i-1];
+        return *max_element(v.begin(),v.end());
     }
 };
