@@ -1,10 +1,15 @@
 class Solution {
 public:
     long long minEnd(int n, int x) {
-       long long res=x;
-        while(--n)
+       long long res=x ,mask;
+        n--;
+        for(mask=1;n>0;mask<<=1)
         {
-            res=(res+1)|x;
+            if((mask&x)==0)
+            {
+                res|=(n&1)*mask;
+                n>>=1;
+            }
         }
         return res;
             
